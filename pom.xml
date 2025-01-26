@@ -102,6 +102,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<outputDirectory>${project.basedir}/target</outputDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
