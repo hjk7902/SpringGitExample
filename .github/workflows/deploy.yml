@@ -16,7 +16,7 @@ jobs:
 
       - name: Set PowerShell Execution Policy
         run: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-        shell: pwsh
+        shell: PowerShell
 
       # 2. JDK 설정 및 Maven 빌드
       - name: Set up JDK 21
