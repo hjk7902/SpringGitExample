@@ -43,12 +43,31 @@ jobs:
             Write-Host "$containerName 컨테이너가 없습니다."
           }
 
-      # 5. 새 Docker 컨테이너 실행
+      
+      # 5. 기존 Docker 이미지 삭제
+      - name: Remove old Docker image
+        shell: powershell
+        run: |
+          $imageName = "${{ secrets.DOCKER_IMAGE_NAME }}"
+          $existingImage = docker images --filter "reference=$imageName" --format "{{.Repository}}"
+          if ($existingImage -eq $imageName) {
+            Write-Host "Removing image: $imageName"
+            docker rmi $imageName
+          } else {
+            Write-Host "No image named $imageName found."
+          }
+
+      # 6. Docker 이미지 빌드
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKER_IMAGE_NAME }} .
+
+      # 7. 새 Docker 컨테이너 실행
       - name: Run new Docker container
         run: |
           docker run -d --name ${{ secrets.DOCKER_CONTAINER_NAME }} -p 8080:8080 ${{ secrets.DOCKER_IMAGE_NAME }}
 
-      # 6. 컨테이너 상태 확인
+      # 8. 컨테이너 상태 확인
       - name: Check running containers
         run: docker ps
 
