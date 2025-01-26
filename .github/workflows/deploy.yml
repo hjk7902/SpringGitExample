@@ -51,4 +51,3 @@ jobs:
       # 6. 컨테이너 상태 확인
       - name: Check running containers
         run: docker ps
-
