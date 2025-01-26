@@ -40,7 +40,7 @@ jobs:
             docker stop $containerName
             docker rm $containerName
           } else {
-            Write-Host "$containerName 컨테이너가 없습니다."
+            Write-Host "No container named $containerName found."
           }
 
       
