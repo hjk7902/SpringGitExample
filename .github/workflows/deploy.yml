@@ -14,11 +14,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set PowerShell Execution Policy
-        shell: PowerShell
-        run: |
-          powershell -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force"
-
       # 2. JDK 설정 및 Maven 빌드
       - name: Set up JDK 21
         uses: actions/setup-java@v3
@@ -28,6 +23,7 @@ jobs:
 
       - name: Build project with Maven
         run: mvn clean package
+        working-directory: ./
 
       # 3. Docker 이미지 빌드
       - name: Build Docker image
