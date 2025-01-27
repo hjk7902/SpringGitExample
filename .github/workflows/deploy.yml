@@ -48,12 +48,13 @@ jobs:
         shell: powershell
         run: |
           $imageName = "${{ secrets.DOCKER_IMAGE_NAME }}"
-          $existingImage = docker images --filter "reference=$imageName" --format "{{.Repository}}"
-          if ($existingImage -eq $imageName) {
-            Write-Host "Removing image: $imageName"
-            docker rmi $imageName
-          } else {
-            Write-Host "No image named $imageName found."
+          try {
+            Write-Host "Attempting to remove image: $imageName"
+            docker rmi -f $imageName
+            Write-Host "Image $imageName removed successfully."
+          } catch {
+            Write-Host "Failed to remove image: $imageName"
+            Write-Host "Error: $_"
           }
 
       # 6. Docker 이미지 빌드
