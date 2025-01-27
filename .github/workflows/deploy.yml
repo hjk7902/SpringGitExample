@@ -43,7 +43,6 @@ jobs:
             Write-Host "No container named $containerName found."
           }
 
-      
       # 5. 기존 Docker 이미지 삭제
       - name: Remove old Docker image
         shell: powershell
@@ -70,4 +69,5 @@ jobs:
       # 8. 컨테이너 상태 확인
       - name: Check running containers
         run: docker ps
+
 
